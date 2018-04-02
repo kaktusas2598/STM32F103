@@ -1,0 +1,41 @@
+/*#include "fonts.h"*/
+/*#include "ssd1306.h"*/
+
+/*#define I2C_FREQRANGE(__PCLK__)                            ((__PCLK__)/1000000U)
+#define I2C_RISE_TIME(__FREQRANGE__, __SPEED__)            (((__SPEED__) <= 100000U) ? ((__FREQRANGE__) + 1U) : ((((__FREQRANGE__) * 300U) / 1000U) + 1U))
+
+#define I2C2_CLEAR_ADDRFLAG()    \
+    __IO uint32_t tmpreg = 0x00U;               \
+    tmpreg = I2C2->SR1;                         \
+    tmpreg = I2C2->SR2;                         \
+	void(tmpreg);                               \
+*/
+
+
+
+int main(void)
+{
+    GPIOB->CRL |= GPIO_CRL_MODE0_0 | GPIO_CRL_MODE0_1; //PBO Output, speed 50MHz
+    GPIOC->CRH |= GPIO_CRH_MODE13_0 | GPIO_CRH_MODE13_1 | //Why I use 50MHz here? Try other bys speeds
+    	GPIO_CRH_MODE15_0 | GPIO_CRH_MODE15_1;
+
+	GPIOA->CRL |= GPIO_CRL_MODE0_0 | GPIO_CRL_MODE0_1;
+	GPIOA->ODR ^= GPIO_ODR_ODR0;
+
+
+
+
+	/*GPIOC->BSRR |= GPIO_BSRR_BS13;*/
+	GPIOC->ODR ^= GPIO_ODR_ODR13;
+	delay(10000);
+	GPIOC->ODR ^= GPIO_ODR_ODR13;
+	/*GPIOC->BSRR |= GPIO_BSRR_BR13;*/
+
+
+
+    while (1)
+    {
+    }
+
+    return 0;
+}
